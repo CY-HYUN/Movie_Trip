@@ -1,0 +1,206 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id    Int   @id  @default(autoincrement())
+  userId    String @unique
+  email     String @unique
+  password  String
+  point     Int
+  userPost  Post[]
+  userComment Comment[]
+  userMovieReview MovieReview[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  deletedAt DateTime?
+}
+
+model Post {
+  postId    Int    @id  @default(autoincrement())
+  title     String
+  content   String
+  author    User?   @relation(fields: [authorId], references: [id])
+  authorId  Int?
+  comment   Comment[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  deletedAt DateTime?
+}
+
+model Comment {
+  commentId  Int      @id @default(autoincrement())
+  content    String
+  author     User?    @relation(fields: [authorId], references: [id])
+  authorId   Int?
+  post       Post?    @relation(fields: [postId], references: [postId])
+  postId     Int?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  deletedAt  DateTime?
+}
+
+model Movie {
+  movieId   Int    @id  @default(autoincrement())
+  title     String
+  plot      String
+  releaseDate    String
+  genre     String
+  audience  Int?
+  peekview  Float?
+  rating    Float?
+}
+
+model MoviePlace {
+  moviePlaceId   Int    @id  @default(autoincrement())
+  mediaType      String
+  title          String
+  placeName      String
+  placeType      String
+  description    String
+  operTime       String
+  restTime       String
+  closedDay      String
+  address        String
+  lat            Float? // 위도
+  lng            Float? // 경도
+}
+
+model SeoulPlace {
+  seqNo         Int     @id
+  placeName      String
+  placeType      String
+  placeDesc    String
+  category      String
+  titmeName        String
+  address        String
+  location        String
+  lat            Float? // 위도
+  lng            Float? // 경도
+}
+
+model JeollaPlace {
+  seqNo        Int     @id
+  placeName    String
+  placeType    String
+  placeDesc    String
+  category     String
+  titmeName    String
+  address      String
+  location     String
+  lat          Float?  // 위도
+  lng          Float?  // 경도
+}
+
+model IncheonPlace {
+  seqNo        Int     @id
+  placeName    String
+  placeType    String
+  placeDesc    String
+  category     String
+  titmeName    String
+  address      String
+  location     String
+  lat          Float?  // 위도
+  lng          Float?  // 경도
+}
+
+model GyeonggiPlace {
+  seqNo        Int     @id
+  placeName    String
+  placeType    String
+  placeDesc    String
+  category     String
+  titmeName    String
+  address      String
+  location     String
+  lat          Float?  // 위도
+  lng          Float?  // 경도
+}
+
+model GangwonPlace {
+  seqNo        Int     @id
+  placeName    String
+  placeType    String
+  placeDesc    String
+  category     String
+  titmeName    String
+  address      String
+  location     String
+  lat          Float?  // 위도
+  lng          Float?  // 경도
+}
+
+model ChungcheongPlace {
+  seqNo        Int     @id
+  placeName    String
+  placeType    String
+  placeDesc    String
+  category     String
+  titmeName    String
+  address      String
+  location     String
+  lat          Float?  // 위도
+  lng          Float?  // 경도
+}
+
+model GyeongsangPlace {
+  seqNo        Int     @id
+  placeName    String
+  placeType    String
+  placeDesc    String
+  category     String
+  titmeName    String
+  address      String
+  location     String
+  lat          Float?  // 위도
+  lng          Float?  // 경도
+}
+
+model BusanPlace {
+  seqNo        Int     @id
+  placeName    String
+  placeType    String
+  placeDesc    String
+  category     String
+  titmeName    String
+  address      String
+  location     String
+  lat          Float?  // 위도
+  lng          Float?  // 경도
+}
+
+
+model MovieReview {
+  movieReviewId   Int    @id  @default(autoincrement())
+  content         String
+  rating          Int
+  movieTitle      String
+  author          User?   @relation(fields: [authorId], references: [id])
+  authorId        Int?
+  authorName      String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime? @updatedAt
+  deletedAt       DateTime?
+}
+
+model UserSaveRoute {
+  userSaveRouteId   Int    @id  @default(autoincrement())
+  userId            Int
+  content           String
+  contentType       String
+  selectRoute       String
+  successRoute      String
+  progress          Int
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime? @updatedAt
+  deletedAt         DateTime?
+}

@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html body {
+  @apply w-full h-screen
+}
+
+#root {
+  @apply w-full h-[calc(100%-105px)] 
+}
+
+.move-button {
+  @apply w-full h-[50px] text-white bg-[#6a2f2f] text-[14px] flex items-center justify-center rounded-full
+}
